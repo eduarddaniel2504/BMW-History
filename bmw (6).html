@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMW — Plăcerea de a Conduce</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bmw-blue: #1c69d4;
+    --bmw-dark: #0a0a0a;
+    --bmw-light: #f5f5f0;
+    --bmw-silver: #c8c8c8;
+    --bmw-white: #ffffff;
+    --bmw-accent: #e8d5a3;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bmw-dark);
+    color: var(--bmw-light);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .bmw-roundel {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 2px solid #999;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    background: #1c69d4;
+  }
+
+  .bmw-roundel .q1 { background: #fff; }
+  .bmw-roundel .q2 { background: #1c69d4; }
+  .bmw-roundel .q3 { background: #1c69d4; }
+  .bmw-roundel .q4 { background: #fff; }
+
+  .nav-brand {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 0.15em;
+    color: var(--bmw-white);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--bmw-silver);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--bmw-white); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0a0a0a 0%, #0d1a2e 50%, #0a0a0a 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 120%, rgba(28,105,212,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(28,105,212,0.08) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(28,105,212,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28,105,212,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--bmw-blue);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 14vw, 14rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    color: var(--bmw-white);
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  .hero-title span {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.25);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--bmw-accent);
+    margin-top: 1.5rem;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 2.8rem;
+    background: var(--bmw-blue);
+    color: #fff;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #2579e8;
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 0.9rem 2.8rem;
+    background: transparent;
+    color: var(--bmw-silver);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s, transform 0.2s;
+    margin-left: 1rem;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--bmw-white);
+    color: var(--bmw-white);
+    transform: translateY(-2px);
+  }
+
+  .hero-car-img {
+    position: relative;
+    z-index: 2;
+    margin-top: 4rem;
+    width: min(900px, 90vw);
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .hero-car-img img {
+    width: 100%;
+    filter: drop-shadow(0 30px 80px rgba(28,105,212,0.3));
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 8rem 4rem; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--bmw-blue);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--bmw-white);
+    margin-bottom: 2rem;
+  }
+
+  .section-text {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: rgba(245,245,240,0.7);
+    max-width: 65ch;
+  }
+
+  /* STATS */
+  .stats-band {
+    background: var(--bmw-blue);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: #fff;
+    display: block;
+  }
+
+  .stat-desc {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 0.25rem;
+  }
+
+  /* HISTORY */
+  .history {
+    background: #0d0d0d;
+  }
+
+  .history-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--bmw-blue), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.35rem;
+    top: 0.35rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--bmw-blue);
+    border: 2px solid var(--bmw-dark);
+  }
+
+  .timeline-year {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--bmw-blue);
+    letter-spacing: 0.08em;
+  }
+
+  .timeline-text {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245,245,240,0.65);
+    margin-top: 0.4rem;
+  }
+
+  .history-image-stack {
+    position: relative;
+    height: 500px;
+  }
+
+  .history-img {
+    position: absolute;
+    width: 80%;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+
+  .history-img:first-child {
+    top: 0; right: 0;
+    transform: rotate(2deg);
+  }
+
+  .history-img:last-child {
+    bottom: 0; left: 0;
+    transform: rotate(-2deg);
+  }
+
+  .history-img img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+    filter: sepia(0.3) contrast(1.1);
+    transition: filter 0.4s;
+  }
+
+  .history-img:hover img { filter: none; }
+
+  /* MODELS SECTION */
+  .models-section {
+    background: #080808;
+  }
+
+  .models-intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .era-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .era-tab {
+    padding: 0.5rem 1.2rem;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--bmw-silver);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .era-tab.active, .era-tab:hover {
+    background: var(--bmw-blue);
+    border-color: var(--bmw-blue);
+    color: #fff;
+  }
+
+  .models-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px;
+  }
+
+  .model-card {
+    background: #111;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s;
+    display: none;
+  }
+
+  .model-card.show { display: block; }
+
+  .model-card:hover { transform: translateY(-4px); }
+
+  .model-card-img {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: #1a1a1a;
+  }
+
+  .model-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+    display: block;
+  }
+
+  .model-card:hover .model-card-img img {
+    transform: scale(1.05);
+  }
+
+  .model-card-img .img-code {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: rgba(0,0,0,0.75);
+    color: var(--bmw-silver);
+    font-family: monospace;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  .model-era-badge {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: var(--bmw-blue);
+    color: #fff;
+    font-size: 0.6rem;
+    padding: 0.25rem 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .model-card-body {
+    padding: 1.5rem;
+  }
+
+  .model-name {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    color: var(--bmw-white);
+    line-height: 1;
+  }
+
+  .model-years {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--bmw-blue);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  .model-desc {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(245,245,240,0.6);
+    margin-top: 1rem;
+  }
+
+  .model-specs {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .spec-item {}
+
+  .spec-val {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--bmw-white);
+    letter-spacing: 0.05em;
+  }
+
+  .spec-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(200,200,200,0.5);
+    margin-top: 0.1rem;
+  }
+
+  .model-price {
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .price-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(200,200,200,0.4);
+  }
+
+  .price-val {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--bmw-accent);
+    letter-spacing: 0.03em;
+  }
+
+  /* IMAGE CODES SECTION */
+  .image-codes {
+    background: #0d0d0d;
+  }
+
+  .codes-table-wrap {
+    margin-top: 3rem;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  th {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    background: rgba(28,105,212,0.15);
+    color: var(--bmw-silver);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(28,105,212,0.3);
+  }
+
+  td {
+    padding: 1rem 1.5rem;
+    color: rgba(245,245,240,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-family: var(--font-body);
+    vertical-align: middle;
+  }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  td:first-child {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--bmw-white);
+    letter-spacing: 0.05em;
+  }
+
+  .code-chip {
+    display: inline-block;
+    background: rgba(28,105,212,0.15);
+    border: 1px solid rgba(28,105,212,0.3);
+    color: #7eb5ff;
+    font-family: monospace;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #050505;
+    padding: 4rem 4rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-brand-title {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--bmw-white);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-brand-sub {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--bmw-accent);
+    margin-top: 0.5rem;
+  }
+
+  .footer-links h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bmw-silver);
+    margin-bottom: 1rem;
+  }
+
+  .footer-links ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-links a {
+    color: rgba(245,245,240,0.45);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--bmw-white); }
+
+  .footer-bottom {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(245,245,240,0.3);
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--bmw-blue);
+    margin: 1.5rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    .stats-band { padding: 2rem 1.5rem; }
+    .history-grid { grid-template-columns: 1fr; }
+    .history-image-stack { height: 300px; }
+    .models-grid { grid-template-columns: 1fr; }
+    footer { padding: 3rem 1.5rem 1.5rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">
+    <div class="bmw-roundel">
+      <div class="q1"></div>
+      <div class="q2"></div>
+      <div class="q3"></div>
+      <div class="q4"></div>
+    </div>
+    <span class="nav-brand">BMW</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">Despre</a></li>
+    <li><a href="#history">Istorie</a></li>
+    <li><a href="#models">Modele</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Bayerische Motoren Werke · Est. 1916</p>
+    <h1 class="hero-title">
+      BMW
+      <span>LEGEND</span>
+    </h1>
+    <p class="hero-subtitle">Freude am Fahren — Plăcerea de a Conduce</p>
+    <div class="hero-cta">
+      <a href="#models" class="btn-primary">Explorează Modelele</a>
+      <a href="#history" class="btn-outline">Istoria Brandului</a>
+    </div>
+  </div>
+  <div class="hero-car-img">
+    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&q=80" alt="BMW M5 Hero">
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stat-item">
+    <span class="stat-num">108</span>
+    <span class="stat-desc">Ani de Inovație</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">30+</span>
+    <span class="stat-desc">Modele Active</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">2.5M+</span>
+    <span class="stat-desc">Mașini/An</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">140+</span>
+    <span class="stat-desc">Țări Distribuite</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">149,475</span>
+    <span class="stat-desc">Angajați Global</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Despre BMW</div>
+  <div class="section-title">Excelență<br>Bavareză</div>
+  <div class="divider"></div>
+  <p class="section-text">
+    BMW (Bayerische Motoren Werke) este unul dintre cele mai prestigioase branduri auto din lume, sinonim cu performanța, luxul și inovația inginerească. Fondat în 1916 în München, Germania, BMW a evoluat de la producerea de motoare pentru avioane la construirea unora dintre cele mai dorite automobile din lume.
+    <br><br>
+    Filosofia brandului se concentrează pe experiența de conducere — fiecare model este proiectat să ofere o conexiune autentică între șofer și mașină. Sloganul iconic „Freude am Fahren" (Plăcerea de a Conduce) nu este doar o expresie de marketing, ci o promisiune înscrisă în ADN-ul fiecărui vehicul produs.
+    <br><br>
+    Astăzi, grupul BMW include brandurile BMW, MINI și Rolls-Royce, și se află în fruntea industriei în ceea ce privește mobilitatea electrică, tehnologia autonomă și designul futurist.
+  </p>
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="history">
+  <div class="section-label">Cronologie</div>
+  <div class="section-title">Istoria<br>Brandului</div>
+  <div class="divider"></div>
+  <div class="history-grid">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1916</div>
+        <p class="timeline-text">Fondarea Bayerische Motoren Werke GmbH în München, Germania. Compania produce inițial motoare pentru aeronave în timpul Primului Război Mondial.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1923</div>
+        <p class="timeline-text">BMW lansează prima sa motocicletă, modelul R32, proiectată de Max Friz — considerată una dintre cele mai elegante motociclete ale epocii.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1928</div>
+        <p class="timeline-text">BMW cumpără fabrica Fahrzeugfabrik Eisenach și intră în producția de automobile. Prima mașină BMW este Dixi 3/15, construită sub licență Austin.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1936</div>
+        <p class="timeline-text">Lansarea BMW 328, un roadster sportiv care domină cursele europene și stabilește identitatea sportivă a brandului pentru decenii.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1951</div>
+        <p class="timeline-text">Reluarea producției de automobile după Al Doilea Război Mondial, cu modelul BMW 501 — prima berlină de lux postbelică a brandului.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1962</div>
+        <p class="timeline-text">Lansarea BMW „Neue Klasse" — seria 1500/1800/2000 revitalizează compania și stabilește fundamentele pentru toate seriile moderne BMW.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1975</div>
+        <p class="timeline-text">Nașterea diviziei M (Motorsport). Primul model M dedicat: BMW 3.0 CSL, urmat curând de legendarul M1.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1994</div>
+        <p class="timeline-text">BMW achiziționează brandul Rover Group (inclusiv Land Rover și MINI). Construiește prima fabrică americană în Spartanburg, Carolina de Sud.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2013</div>
+        <p class="timeline-text">Lansarea BMW i3 și i8 — pionieri ai mobilității electrice din portofoliul BMW. Începutul erei „i" (electric și sustenabil).</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2021–2026</div>
+        <p class="timeline-text">Extinderea masivă a platformei electrice: iX, i4, i5, i7, iX1 și noua generație Neue Klasse — viitorul 100% electric al brandului.</p>
+      </div>
+    </div>
+    <div class="history-image-stack">
+      <div class="history-img">
+        <img src="https://preview.redd.it/does-anyone-else-really-want-the-e38-bmw-7-series-in-forza-v0-thm8jisy9a651.png?width=640&crop=smart&auto=webp&s=f38a6efbc36ff079555f417c65f51a515bfa3655" alt="BMW Clasic">
+      </div>
+      <div class="history-img">
+        <img src="https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=600&q=80" alt="BMW Modern">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODELS SECTION -->
+<section id="models" class="models-section">
+  <div class="models-intro">
+    <div>
+      <div class="section-label">Portofoliu Complet</div>
+      <div class="section-title">Toate<br>Modelele</div>
+    </div>
+    <div class="era-tabs">
+      <button class="era-tab active" onclick="filterModels('all')">Toate</button>
+      <button class="era-tab" onclick="filterModels('clasic')">Clasice (1928–1980)</button>
+      <button class="era-tab" onclick="filterModels('vintage')">Vintage (1980–2000)</button>
+      <button class="era-tab" onclick="filterModels('modern')">Moderne (2000–2015)</button>
+      <button class="era-tab" onclick="filterModels('actual')">Actuale (2015+)</button>
+      <button class="era-tab" onclick="filterModels('electric')">Electrice</button>
+      <button class="era-tab" onclick="filterModels('m')">Seria M</button>
+    </div>
+  </div>
+
+  <div class="models-grid" id="modelsGrid">
+
+    <!-- 1928 – Dixi 3/15 -->
+    <div class="model-card show" data-era="clasic">
+      <div class="model-card-img">
+        <span class="model-era-badge">Clasic</span>
+        <span class="img-code">DIXI_3_15_1928</span>
+        <img src="https://cdn.rmsothebys.com/d/3/8/3/a/5/d383a59969bf9fef47ccea387aa4574e9bf34fce.webp">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">Dixi 3/15</div>
+        <div class="model-years">1928 – 1932</div>
+        <p class="model-desc">Prima mașină BMW, produsă sub licența Austin Seven. Motor de 748cc cu 15 CP, caroserie open tourer. A marcat intrarea BMW în industria auto cu un vehicul accesibil și practic pentru vremea sa.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">15 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">748cc</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">75 km/h</div><div class="spec-label">Vmax</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Valoare colecție:</span><span class="price-val">~€25,000</span></div>
+      </div>
+    </div>
+
+    <!-- 1936 – BMW 328 -->
+    <div class="model-card show" data-era="clasic">
+      <div class="model-card-img">
+        <span class="model-era-badge">Clasic</span>
+        <span class="img-code">BMW_328_1936</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/BMW_328_%2816.06.2007%29.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW 328</div>
+        <div class="model-years">1936 – 1940</div>
+        <p class="model-desc">Roadsterul sportiv care a definit performanța BMW. Motor inline-6 de 2.0L cu 80 CP și caroserie revoluționară. A câștigat Mille Miglia în 1940 și a influențat designul sportiv european pentru generații.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">80 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">2.0L I6</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">156 km/h</div><div class="spec-label">Vmax</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Valoare colecție:</span><span class="price-val">€400,000+</span></div>
+      </div>
+    </div>
+
+    <!-- 1954 – BMW 502 -->
+    <div class="model-card show" data-era="clasic">
+      <div class="model-card-img">
+        <span class="model-era-badge">Clasic</span>
+        <span class="img-code">BMW_502_1954</span>
+        <img src="https://en.bmw-club.cz/graphics/gallery/full/4169-low-bmw-502-103.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW 502</div>
+        <div class="model-years">1954 – 1961</div>
+        <p class="model-desc">Prima berlinăde lux BMW postbelică cu motor V8 din Europa. Supranumit „Barocco pe roți", a readus BMW în segmentul premium cu un design elegant și performanță remarcabilă pentru epocă.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">100 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">2.6L V8</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">160 km/h</div><div class="spec-label">Vmax</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Valoare colecție:</span><span class="price-val">~€60,000</span></div>
+      </div>
+    </div>
+
+    <!-- 1968 – BMW 2002 -->
+    <div class="model-card show" data-era="clasic">
+      <div class="model-card-img">
+        <span class="model-era-badge">Clasic</span>
+        <span class="img-code">BMW_2002_1968</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Blackrock%2C_Co_Dublin_-_Ireland_%284799982672%29.jpg/1280px-Blackrock%2C_Co_Dublin_-_Ireland_%284799982672%29.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW 2002</div>
+        <div class="model-years">1968 – 1976</div>
+        <p class="model-desc">Mașina care a inventat conceptul de „sport sedan compact". Combinând ușurință cu un motor viu de 2.0L, 2002 a definit identitatea BMW pentru totdeauna. Prima BMW cu turbocompresor: 2002 Turbo din 1973.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">100 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">2.0L I4</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">175 km/h</div><div class="spec-label">Vmax</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Valoare colecție:</span><span class="price-val">€20,000–€80,000</span></div>
+      </div>
+    </div>
+
+    <!-- 1978 – BMW M1 -->
+    <div class="model-card show" data-era="vintage m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <span class="img-code">BMW_M1_1978</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/BMW_M1%2C_front_right_%28Brooklyn%29.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW M1</div>
+        <div class="model-years">1978 – 1981</div>
+        <p class="model-desc">Primul supercar BMW, proiectat în colaborare cu Lamborghini și finalizat de Baur. Mid-engine cu motor inline-6 de 3.5L și 277 CP. Singurul supercar mid-engine din istoria BMW. Baza seriei ProCar.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">277 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">3.5L I6</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">260 km/h</div><div class="spec-label">Vmax</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Valoare colecție:</span><span class="price-val">€500,000–€1,000,000+</span></div>
+      </div>
+    </div>
+
+    <!-- 1986 – M3 E30 -->
+    <div class="model-card show" data-era="vintage">
+      <div class="model-card-img">
+        <span class="model-era-badge">Vintage</span>
+        <span class="img-code">BMW_E30_M3_1986</span>
+        <img src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/www_bmw-m_com/topics/magazine-article-pool/2018/bmw-m3-e30/bmw-m3-e30-article-image-02.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M3 E30</div>
+        <div class="model-years">1986 – 1992</div>
+        <p class="model-desc">Legenda absolută. Construit pentru a domina DTM și Group A, M3 E30 a redefinit ce înseamnă un sport sedan. Motor S14 de 2.3L cu 200 CP (215 CP în versiunea Evolution), perfect echilibrat și extrem de agil.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">200 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">2.3L I4</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">235 km/h</div><div class="spec-label">Vmax</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Valoare colecție:</span><span class="price-val">€60,000–€200,000</span></div>
+      </div>
+    </div>
+
+    <!-- 1988 – Seria 5 E34 -->
+    <div class="model-card show" data-era="vintage">
+      <div class="model-card-img">
+        <span class="model-era-badge">Vintage</span>
+        <span class="img-code">BMW_E34_M5_1988</span>
+        <img src="https://www.classicandsportscar.com/sites/default/files/styles/article/public/2023-06/Classic%20%26%20Sports%20Car%20%E2%80%93%20Buyer%E2%80%99s%20guide%20BMW%20M5%20E34%20%E2%80%93%20LEAD.png?itok=ZcY5feBo">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">Seria 5 E34</div>
+        <div class="model-years">1988 – 1996</div>
+        <p class="model-desc">Una dintre cele mai apreciate generații ale Seriei 5. Design curat și elegant, motoare solide, dinamică excelentă. Versiunea M5 cu 3.8L inline-6 și 340 CP este considerată una dintre cele mai bune berline sportive din toate timpurile.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">340 CP</div><div class="spec-label">M5</div></div>
+          <div class="spec-item"><div class="spec-val">3.8L I6</div><div class="spec-label">Motor M5</div></div>
+          <div class="spec-item"><div class="spec-val">250 km/h</div><div class="spec-label">Vmax</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€8,000–€40,000</span></div>
+      </div>
+    </div>
+
+    <!-- 1992 – M3 E36 -->
+    <div class="model-card show" data-era="vintage m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <img src="https://maessencsc.com/wp-content/uploads/2025/08/bmw-m3-e36-sedan-1997-carbon-schwartz.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M3 E36</div>
+        <div class="model-years">1992 – 1999</div>
+        <p class="model-desc">A doua generație M3, mai mare și mai rafinată decât E30. Motor inline-6 S50/S52 de 3.0–3.2L cu până la 321 CP. Disponibil ca sedan, coupé și cabriolet — prima M3 accesibilă unui public mai larg, combinând sport cu utilizare zilnică.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">321 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">3.2L I6</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">250 km/h</div><div class="spec-label">Vmax (limitat)</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Valoare colecție:</span><span class="price-val">€15,000–€45,000</span></div>
+      </div>
+    </div>
+
+    <!-- 1994 – BMW Seria 7 E38 -->
+    <div class="model-card show" data-era="vintage modern">
+      <div class="model-card-img">
+        <span class="model-era-badge">Vintage</span>
+        <img src="https://i.pinimg.com/736x/b6/21/5a/b6215a260cc44cec6ded0737dd9aad38.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">Seria 7 E38</div>
+        <div class="model-years">1994 – 2001</div>
+        <p class="model-desc">Considerată de mulți cea mai elegantă Serie 7 din toate timpurile. Design rafinat semnat Pininfarina, interior de cea mai înaltă calitate și tehnologie de vârf pentru epocă. Disponibilă cu motoare inline-6, V8 și V12 — vârful 750iL cu motor M73 V12 de 5.4L și 326 CP rămâne o legendă absolută a luxului european.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">326 CP</div><div class="spec-label">750iL V12</div></div>
+          <div class="spec-item"><div class="spec-val">5.4L V12</div><div class="spec-label">Motor Top</div></div>
+          <div class="spec-item"><div class="spec-val">250 km/h</div><div class="spec-label">Vmax (limitat)</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€5,000–€25,000</span></div>
+      </div>
+    </div>
+
+    <!-- 1998 – M5 E39 -->
+    <div class="model-card show" data-era="vintage modern m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <img src="https://i.redd.it/why-is-bmw-e39-m5-e39-5-series-considered-the-best-5-series-v0-5dmhhz4r1e8e1.jpg?width=1920&format=pjpg&auto=webp&s=06853f5172dd9e9774cb8a1987beb83b30a2abf5">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M5 E39</div>
+        <div class="model-years">1998 – 2003</div>
+        <p class="model-desc">Unanim considerată cea mai bună M5 din toate timpurile. Motor S62 V8 de 5.0L cu 400 CP, complet atmosferic, cu sunet superb. Design discret dar agresiv, interior impecabil. O berlinăde familie care putea bate supercars-urile epocii — perfectă în toate privințele.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">400 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">5.0L V8</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">250 km/h</div><div class="spec-label">Vmax (limitat)</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Valoare colecție:</span><span class="price-val">€25,000–€70,000</span></div>
+      </div>
+    </div>
+
+    <!-- 1999 – BMW X5 E53 -->
+    <div class="model-card show" data-era="modern">
+      <div class="model-card-img">
+        <span class="model-era-badge">Modernă</span>
+        <span class="img-code">BMW_X5_E53_1999</span>
+        <img src="https://ireland.apollo.olxcdn.com/v1/files/06y4ob9ipudh2-AUTOVITRO/image;s=644x461">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW X5 (E53)</div>
+        <div class="model-years">1999 – 2006</div>
+        <p class="model-desc">Primul SUV BMW — a creat segmentul SAV (Sport Activity Vehicle). Combinând confortul unui SUV cu dinamica unui BMW, X5 a revoluționat piața. Motoare disponibile: 3.0i, 4.4i, 4.6is, 4.8is.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">360 CP</div><div class="spec-label">4.8is</div></div>
+          <div class="spec-item"><div class="spec-val">4.8L V8</div><div class="spec-label">Motor Top</div></div>
+          <div class="spec-item"><div class="spec-val">240 km/h</div><div class="spec-label">Vmax</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€5,000–€18,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2000 – M3 E46 -->
+    <div class="model-card show" data-era="modern">
+      <div class="model-card-img">
+        <span class="model-era-badge">Modernă</span>
+        <span class="img-code">BMW_E46_M3_2000</span>
+        <img src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/www_bmw-m_com/topics/magazine-article-pool/2018/bmw-m3-e46/bmw-m3-e46-portraet-01-st-16x9.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M3 E46</div>
+        <div class="model-years">2000 – 2006</div>
+        <p class="model-desc">Considerat de mulți fanii BMW drept cel mai pur M3 din istorie. Motor S54 inline-6 atmosferic de 3.2L cu 343 CP, propulsat până la 8.000 RPM. Direcție directă, echilibru perfect, sunet irepetabil.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">343 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">3.2L I6</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">250 km/h</div><div class="spec-label">Vmax (limitat)</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€20,000–€55,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2004 – M5 E60 -->
+    <div class="model-card show" data-era="modern m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <span class="img-code">BMW_M5_E60_2004</span>
+        <img src="https://www.automoli.com/common/vehicles/_assets/img/gallery/f109/bmw-m5-e60.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M5 E60</div>
+        <div class="model-years">2004 – 2010</div>
+        <p class="model-desc">Un inginer și un poet s-au întâlnit și au creat M5 E60. Motor V10 S85 de 5.0L cu 507 CP, natural aspirat, cu 8.250 RPM maxim. Sunetul său este considerat unul dintre cele mai frumoase din industria auto.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">507 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">5.0L V10</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">250 km/h</div><div class="spec-label">Vmax (limitat)</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€20,000–€50,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2007 – M3 E92 -->
+    <div class="model-card show" data-era="modern m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <img src="https://youngtimercar.eu/wp-content/uploads/2024/03/R22-FOTO-2209293-1200x800.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M3 E92</div>
+        <div class="model-years">2007 – 2013</div>
+        <p class="model-desc">Singurul M3 cu motor V8 din istorie — S65 de 4.0L cu 420 CP și 8.300 RPM maxim. Sunet volcanic, răspuns instantaneu, caracterul unui supercar într-un coupé accesibil. Disponibil și ca sedan (E90) și cabriolet (E93). Ultima M3 cu motor atmosferic la nivel înalt.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">420 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">4.0L V8</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">250 km/h</div><div class="spec-label">Vmax (limitat)</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€25,000–€65,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2011 – M5 F10 -->
+    <div class="model-card show" data-era="modern m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <img src="https://www.exoticcarhacks.com/wp-content/uploads/2024/12/Used-2016-BMW-M5-w-Executive-Pack-FULL-Merino-Leather-Dinan-Exhaust-1713898293.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M5 F10</div>
+        <div class="model-years">2011 – 2017</div>
+        <p class="model-desc">Prima M5 cu motor turbo — S63 V8 de 4.4L twin-turbo cu 560 CP (Competition: 575 CP). O schimbare radicală față de V10-ul lui E60, dar cu un cuplu masiv disponibil instant. 0-100 în 4.2s. Prima M5 cu tracțiune integrală opțională (M xDrive) din 2016.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">560 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">4.4L V8 TT</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">4.2 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€30,000–€65,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2012 – M6 F13 -->
+    <div class="model-card show" data-era="modern m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <img src="https://www.bmw-m.com/content/dam/bmw/marketBMW_M/www_bmw-m_com/topics/magazine-article-pool/2025/bmw-m6-coup%C3%A9-f13/bmw-m6-coupe-F13-01-16x9-st.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M6 F13</div>
+        <div class="model-years">2012 – 2018</div>
+        <p class="model-desc">Gran Turismo-ul suprem BMW — M6 F13 combină eleganța unui coupé de lux cu performanța brutală a diviziei M. Motor S63 V8 twin-turbo de 4.4L cu 560 CP (Competition: 600 CP). Disponibil ca coupé, cabriolet și Gran Coupé 4 uși. Rafinament și viteză în egală măsură.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">600 CP</div><div class="spec-label">Competition</div></div>
+          <div class="spec-item"><div class="spec-val">4.4L V8 TT</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">4.0 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€35,000–€75,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2013 – BMW i3 -->
+    <div class="model-card show" data-era="electric">
+      <div class="model-card-img">
+        <span class="model-era-badge">Electric</span>
+        <span class="img-code">BMW_I3_2013</span>
+        <img src="https://mediapool.bmwgroup.com/cache/P9/201604/P90216973/P90216973-bmw-i3-94ah-05-2016-2003px.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW i3</div>
+        <div class="model-years">2013 – 2022</div>
+        <p class="model-desc">Pionierul electric BMW — primul vehicul de serie cu caroserie din fibră de carbon (CFRP) și interior din materiale sustenabile. Motor de 170 CP, autonomie de 260–310 km. A transformat percepția despre mașinile electrice.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">170 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">100% EV</div><div class="spec-label">Propulsie</div></div>
+          <div class="spec-item"><div class="spec-val">310 km</div><div class="spec-label">Autonomie</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€15,000–€30,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2014 – BMW M4 F82 Facelift -->
+    <div class="model-card show" data-era="modern actual m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <img src="https://mediapool.bmwgroup.com/cache/P9/201703/P90251019/P90251019-the-new-bmw-m4-cs-04-2017-600px.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M4 F82</div>
+        <div class="model-years">2014 – 2020</div>
+        <p class="model-desc">Primul M4 din istorie — succesorul direct al M3 E92 în format coupé, cu motor S55 inline-6 twin-turbo de 3.0L și 431 CP (Competition: 450 CP). Facelift-ul din 2017 a adus estetică rafinată, frâne îmbunătățite și pachetul Competition mai performant. 0-100 în 4.0s, sunet caracteristic turbo cu caracter sportiv autentic.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">450 CP</div><div class="spec-label">Competition</div></div>
+          <div class="spec-item"><div class="spec-val">3.0L I6 TT</div><div class="spec-label">Motor S55</div></div>
+          <div class="spec-item"><div class="spec-val">4.0 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€40,000–€80,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2018 – M5 F90 -->
+    <div class="model-card show" data-era="actual m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <img src="https://696e7465726175746f.ultracdn.net/wp-content/uploads/2023/10/g/e/car_63584d3oii1y8kic7e77z64zimfh.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M5 F90</div>
+        <div class="model-years">2018 – 2024</div>
+        <p class="model-desc">Generația care a democratizat puterea extremă. Motor S63 V8 twin-turbo de 4.4L cu 600 CP (Competition: 625 CP). Prima M5 de serie cu tracțiune integrală M xDrive, cu posibilitatea de a dezactiva puntea față pentru drift pur. 0-100 în 3.4s — un sedan de familie mai rapid ca un supercar.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">625 CP</div><div class="spec-label">Competition</div></div>
+          <div class="spec-item"><div class="spec-val">4.4L V8 TT</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">3.4 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț uzat:</span><span class="price-val">€70,000–€130,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2018 – BMW X5 G05 -->
+    <div class="model-card show" data-era="actual">
+      <div class="model-card-img">
+        <span class="model-era-badge">Actuală</span>
+        <span class="img-code">BMW_X5_G05_2018</span>
+        <img src="https://ireland.apollo.olxcdn.com/v1/files/ymeydpr1hd1k2-AUTOVITRO/image;s=644x461">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW X5 (G05)</div>
+        <div class="model-years">2018 – Prezent</div>
+        <p class="model-desc">Cel mai popular SUV premium din lume. Generația G05 aduce un design imponent, interior luxos cu ecrane curbate, xDrive inteligent și opțiunea plug-in hybrid xDrive50e. Referința absolută în segmentul SUV premium mare.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">530 CP</div><div class="spec-label">M Competition</div></div>
+          <div class="spec-item"><div class="spec-val">4.4L V8T</div><div class="spec-label">Motor M</div></div>
+          <div class="spec-item"><div class="spec-val">3.8 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€78,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2019 – Seria 3 G20 -->
+    <div class="model-card show" data-era="actual">
+      <div class="model-card-img">
+        <span class="model-era-badge">Actuală</span>
+        <span class="img-code">BMW_3_SERIES_G20_2019</span>
+        <img src="https://frankfurt.apollo.olxcdn.com/v1/files/k39xlxt3qr5b3-RO/image;s=1600x1047">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">Seria 3 (G20)</div>
+        <div class="model-years">2019 – Prezent</div>
+        <p class="model-desc">Coloana vertebrală a BMW — berlina sport de referință. Generația G20 aduce un design mai musculos, cockpit digital complet, sistem xDrive îmbunătățit și un echilibru de neegalat între confort și agilitate.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">374 CP</div><div class="spec-label">M340i</div></div>
+          <div class="spec-item"><div class="spec-val">3.0L I6T</div><div class="spec-label">Motor Top</div></div>
+          <div class="spec-item"><div class="spec-val">250 km/h</div><div class="spec-label">Vmax (limitat)</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€43,200</span></div>
+      </div>
+    </div>
+
+    <!-- 2021 – BMW i4 -->
+    <div class="model-card show" data-era="electric">
+      <div class="model-card-img">
+        <span class="model-era-badge">Electric</span>
+        <span class="img-code">BMW_I4_G26_2021</span>
+        <img src="https://mediapool.bmwgroup.com/cache/P9/202105/P90423613/P90423613-the-bmw-i4m50-6-2021-600px.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW i4</div>
+        <div class="model-years">2021 – Prezent</div>
+        <p class="model-desc">Gran Coupé 100% electric bazat pe platforma Seria 4. Versiunea eDrive40 oferă 340 CP și autonomie de 590 km, iar M50 atinge 544 CP și 0-100 în 3.9s. Perfectă îmbinare de sport și sustenabilitate.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">544 CP</div><div class="spec-label">M50</div></div>
+          <div class="spec-item"><div class="spec-val">100% EV</div><div class="spec-label">Propulsie</div></div>
+          <div class="spec-item"><div class="spec-val">590 km</div><div class="spec-label">Autonomie</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€59,900</span></div>
+      </div>
+    </div>
+
+    <!-- 2021 – BMW iX -->
+    <div class="model-card show" data-era="electric">
+      <div class="model-card-img">
+        <span class="model-era-badge">Electric</span>
+        <span class="img-code">BMW_IX_I20_2021</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/BMW_iX_IAA_2021_1X7A0204.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW iX</div>
+        <div class="model-years">2021 – Prezent</div>
+        <p class="model-desc">Flagship electric BMW — platforma exclusivă, exterior aerodinamic futurist, interior minimalst cu lemn, cristal și materiale reciclate. iX M60 cu 619 CP și 0-100 în 3.8s. Autonomie de până la 630 km. Viitorul mobilității BMW.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">619 CP</div><div class="spec-label">M60</div></div>
+          <div class="spec-item"><div class="spec-val">100% EV</div><div class="spec-label">Propulsie</div></div>
+          <div class="spec-item"><div class="spec-val">630 km</div><div class="spec-label">Autonomie</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€77,300</span></div>
+      </div>
+    </div>
+
+    <!-- 2021 – M3 G80 -->
+    <div class="model-card show" data-era="actual m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <span class="img-code">BMW_M3_G80_2021</span>
+        <img src="https://www.auto-data.net/images/f107/BMW-M3-G80.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M3 Competition (G80)</div>
+        <div class="model-years">2021 – Prezent</div>
+        <p class="model-desc">Motor S58 inline-6 twin-turbo de 3.0L cu 510 CP — cel mai puternic M3 din istorie. Primul M3 cu tracțiune integrală M xDrive (opțional). Timp de 0-100 în 3.9 secunde. Controversat estetic dar devastator pe circuit.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">510 CP</div><div class="spec-label">Putere</div></div>
+          <div class="spec-item"><div class="spec-val">3.0L I6 TT</div><div class="spec-label">Motor</div></div>
+          <div class="spec-item"><div class="spec-val">3.9 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€86,900</span></div>
+      </div>
+    </div>
+
+    <!-- 2022 – Seria 7 G70 -->
+    <div class="model-card show" data-era="actual">
+      <div class="model-card-img">
+        <span class="model-era-badge">Actuală</span>
+        <span class="img-code">BMW_7_SERIES_G70_2022</span>
+        <img src="https://ireland.apollo.olxcdn.com/v1/files/sy8e81dqjv2n2-AUTOVITRO/image;s=644x461">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">Seria 7 (G70)</div>
+        <div class="model-years">2022 – Prezent</div>
+        <p class="model-desc">Limuzina de vârf BMW — un palat pe roți cu tehnologie uluitoare. Ecran theater cu diagonala de 31,3 inch în spate, suspensie air adaptivă, motor V8 cu 544 CP sau i7 electric cu 544 CP. Rivalul direct al Mercedesului Clasa S.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">544 CP</div><div class="spec-label">760i / i7 M70</div></div>
+          <div class="spec-item"><div class="spec-val">4.4L V8T</div><div class="spec-label">Motor 760</div></div>
+          <div class="spec-item"><div class="spec-val">4.5 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€109,300</span></div>
+      </div>
+    </div>
+
+    <!-- 2022 – BMW i7 -->
+    <div class="model-card show" data-era="electric actual">
+      <div class="model-card-img">
+        <span class="model-era-badge">Electric</span>
+        <span class="img-code">BMW_I7_G70_2022</span>
+        <img src="https://ireland.apollo.olxcdn.com/v1/files/umkmyz7xiz8n3-AUTOVITRO/image;s=644x461">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">BMW i7</div>
+        <div class="model-years">2022 – Prezent</div>
+        <p class="model-desc">Limuzina executivă 100% electrică. Versiunea xDrive60 oferă 544 CP și autonomie de 625 km, iar i7 M70 ajunge la 660 CP. Theater Screen cu 31.3 inch în spate transformă călătoria în experiență cinematografică.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">660 CP</div><div class="spec-label">M70</div></div>
+          <div class="spec-item"><div class="spec-val">100% EV</div><div class="spec-label">Propulsie</div></div>
+          <div class="spec-item"><div class="spec-val">625 km</div><div class="spec-label">Autonomie</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€134,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2023 – Seria 5 G60 -->
+    <div class="model-card show" data-era="actual">
+      <div class="model-card-img">
+        <span class="model-era-badge">Actuală</span>
+        <span class="img-code">BMW_5_SERIES_G60_2024</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/BMW_G60_520i_1X7A2443.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">Seria 5 (G60)</div>
+        <div class="model-years">2023 – Prezent</div>
+        <p class="model-desc">Noua Serie 5 introduce platforma cea mai modernă BMW, cu interiorul iDrive de generație nouă. Disponibil inclusiv ca i5 100% electric cu până la 601 CP (M60). Redefinește berlina executivă pentru era digitală.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">601 CP</div><div class="spec-label">i5 M60</div></div>
+          <div class="spec-item"><div class="spec-val">Electric</div><div class="spec-label">Tip Top</div></div>
+          <div class="spec-item"><div class="spec-val">5.3 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€62,000</span></div>
+      </div>
+    </div>
+
+    <!-- 2024 – M5 G90 PHEV -->
+    <div class="model-card show" data-era="actual m">
+      <div class="model-card-img">
+        <span class="model-era-badge">M Series</span>
+        <span class="img-code">BMW_M5_G90_2024</span>
+        <img src="https://www.auto-data.net/images/f111/BMW-M5-G90_4.jpg">
+      </div>
+      <div class="model-card-body">
+        <div class="model-name">M5 (G90) PHEV</div>
+        <div class="model-years">2024 – Prezent</div>
+        <p class="model-desc">Prima M5 hibridă plug-in din istorie — un motor V8 de 4.4L twin-turbo + motor electric = 727 CP totali. xDrive obligatoriu. 0-100 în 3.5 secunde. Autonomie electrică de 67 km. Cel mai rapid sedan de serie din lume.</p>
+        <div class="model-specs">
+          <div class="spec-item"><div class="spec-val">727 CP</div><div class="spec-label">Putere totală</div></div>
+          <div class="spec-item"><div class="spec-val">V8 + Elec</div><div class="spec-label">Propulsie</div></div>
+          <div class="spec-item"><div class="spec-val">3.5 sec</div><div class="spec-label">0–100 km/h</div></div>
+        </div>
+        <div class="model-price"><span class="price-label">Preț nou din:</span><span class="price-val">€139,900</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-title">BMW</div>
+      <p class="footer-brand-sub">Freude am Fahren</p>
+      <p style="color:rgba(245,245,240,0.35); font-size:0.8rem; margin-top:1rem; max-width:30ch; font-family:var(--font-serif); line-height:1.7;">Bayerische Motoren Werke AG<br>München, Bavaria, Germania<br>Fondat: 7 Martie 1916</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigare</h4>
+      <ul>
+        <li><a href="#about">Despre BMW</a></li>
+        <li><a href="#history">Istoria Brandului</a></li>
+        <li><a href="#models">Toate Modelele</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Serii BMW</h4>
+      <ul>
+        <li><a href="#models">Seria 1, 2, 3, 4</a></li>
+        <li><a href="#models">Seria 5, 6, 7, 8</a></li>
+        <li><a href="#models">X1, X2, X3, X4, X5, X6, X7</a></li>
+        <li><a href="#models">i3, i4, i5, i7, iX</a></li>
+        <li><a href="#models">M2, M3, M4, M5, M8</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Grupe BMW</h4>
+      <ul>
+        <li><a href="#">BMW</a></li>
+        <li><a href="#">MINI</a></li>
+        <li><a href="#">Rolls-Royce</a></li>
+        <li><a href="#">BMW M GmbH</a></li>
+        <li><a href="#">BMW i</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 BMW AG. Site creat în scop educațional și informativ. Toate imaginile aparțin proprietarilor respectivi.</p>
+    <p class="footer-copy">Prețurile sunt orientative și pot varia în funcție de configurație și piață.</p>
+  </div>
+</footer>
+
+<script>
+  // Tab filtering
+  function filterModels(era) {
+    document.querySelectorAll('.era-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+
+    document.querySelectorAll('.model-card').forEach(card => {
+      if (era === 'all') {
+        card.classList.add('show');
+      } else {
+        const cardEra = card.dataset.era || '';
+        if (cardEra.includes(era)) {
+          card.classList.add('show');
+        } else {
+          card.classList.remove('show');
+        }
+      }
+    });
+  }
+
+  // Timeline intersection observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+
+  // Smooth nav highlight
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 100) {
+      nav.style.background = 'rgba(10,10,10,0.97)';
+    } else {
+      nav.style.background = 'rgba(10,10,10,0.85)';
+    }
+  });
+</script>
+</body>
+</html>
